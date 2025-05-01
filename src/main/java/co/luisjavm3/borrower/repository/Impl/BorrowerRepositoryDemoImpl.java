@@ -21,11 +21,9 @@ public class BorrowerRepositoryDemoImpl implements BorrowerRepository {
     public Borrower addBorrower(Borrower borrower) {
         long max = borrowers.stream()
                 .mapToLong(Borrower::getId)
-                .max().orElse(1l);
-        if (!borrowers.isEmpty())
-            max++;
+                .max().orElse(0l);
 
-        borrower.setId(max);
+        borrower.setId(max + 1);
         borrowers.add(borrower);
         return borrower;
     }

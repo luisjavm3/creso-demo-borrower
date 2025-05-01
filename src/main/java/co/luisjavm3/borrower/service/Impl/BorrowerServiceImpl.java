@@ -15,8 +15,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BorrowerServiceImpl implements BorrowerService {
-    private final ModelMapper mapper;
+    private final LoanRemoverService loanRemoverService;
     private final BorrowerRepository repository;
+    private final ModelMapper mapper;
 
     @Override
     public BorrowerDto addBorrower(BorrowerInsertDto request) {
@@ -34,6 +35,7 @@ public class BorrowerServiceImpl implements BorrowerService {
     @Override
     public void deleteBorrower(long id) {
         repository.deleteBorrower(id);
+        loanRemoverService.removeLoansByBorrowerId(id);
     }
 
 }
