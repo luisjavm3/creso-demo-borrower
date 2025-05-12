@@ -1,7 +1,10 @@
 package co.luisjavm3.borrower.controller;
 
+import java.util.Random;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -9,15 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @GetMapping
     public String test() {
-        return "Borrower Service - OK - v1";
+        return "Borrower Service : OK";
     }
 
     @GetMapping("/loop")
-    public String test1() {
-        for (int i = 0; i < 100; i++) {
+    public String test1(@RequestParam(name = "count", defaultValue = "1000") int count) {
+        Random r = new Random();
 
+        for (int i = 0; i < count; i++) {
+            for (int j = 0; j < 10000; j++) {
+                r.nextInt(100);
+            }
         }
 
-        return "Loan Service : Loop OK";
+        return "Loan Service : Loop : " + count;
     }
 }
